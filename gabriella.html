@@ -14,7 +14,12 @@
       padding: 0;
       font-family: 'Arial', sans-serif;
       color: #333;
-      overflow: hidden; /* Evita rolagem */
+      height: 100vh; /* Altura total da tela */
+      display: flex; /* Para centralização */
+      justify-content: center; /* Centralizar horizontalmente */
+      align-items: center; /* Centralizar verticalmente */
+      text-align: center; /* Alinhar texto ao centro */
+      overflow: hidden;
     }
 
     @keyframes gradientAnimation {
@@ -29,21 +34,21 @@
       }
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 15%;
-      font-size: 3rem;
-      color: #4b0082;
+    .content {
+      max-width: 80%;
       animation: fadeIn 3s ease forwards;
     }
 
-    p {
-      text-align: center;
-      font-size: 1.5rem;
-      margin: 20px auto;
+    h1 {
+      font-size: 3rem;
       color: #4b0082;
-      animation: fadeIn 5s ease forwards;
-      max-width: 80%;
+      margin: 0 0 20px;
+    }
+
+    p {
+      font-size: 1.5rem;
+      color: #4b0082;
+      margin: 0;
     }
 
     @keyframes fadeIn {
@@ -78,7 +83,6 @@
     @media (max-width: 768px) {
       h1 {
         font-size: 2.5rem;
-        margin-top: 20%;
       }
 
       p {
@@ -89,7 +93,6 @@
     @media (max-width: 480px) {
       h1 {
         font-size: 2rem;
-        margin-top: 25%;
       }
 
       p {
@@ -99,8 +102,10 @@
   </style>
 </head>
 <body>
-  <h1>Feliz Aniversário, Gabriella!</h1>
-  <p>Neste dia especial, celebramos você e todas as alegrias que traz à nossa vida. Que seu aniversário seja repleto de amor e felicidades. Parabéns por mais um ano incrível!</p>
+  <div class="content">
+    <h1>Feliz Aniversário, Gabriella!</h1>
+    <p>Neste dia especial, celebramos você e todas as alegrias que traz à nossa vida. Que seu aniversário seja repleto de amor e felicidades. Parabéns por mais um ano incrível!</p>
+  </div>
 
   <script>
     // Criar confetes animados
