@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário, Gabriella!</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Incluindo o CSS diretamente para facilitar */
+    body {
+      background: linear-gradient(135deg, #FFB6C1, #DDA0DD, #ADD8E6);
+      background-size: 200% 200%;
+      animation: gradientAnimation 10s ease infinite;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #333;
+      overflow: hidden; /* Para evitar rolagem desnecessária */
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 10%;
+      font-size: 3.5rem;
+      color: #4b0082;
+      animation: fadeIn 3s ease forwards;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-top: 20px;
+      color: #4b0082;
+      animation: fadeIn 5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      animation: confetti 5s linear infinite;
+    }
+
+    @keyframes confetti {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz Aniversário, Gabriella!</h1>
+  <p>Neste dia especial, celebramos você e todas as alegrias que traz a nossa vida. Que seu aniversário seja repleto de amor e felicidades. Parabéns por mais um ano incrível!</p>
+
+  <script>
+    // Adicionando confetes animados
+    const createConfetti = () => {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      document.body.appendChild(confetti);
+
+      const size = Math.random() * 8 + 4 + 'px';
+      const color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+
+      confetti.style.width = size;
+      confetti.style.height = size;
+      confetti.style.background = color;
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+
+      // Removendo o confete após a animação
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    };
+
+    // Gerar confetes continuamente
+    setInterval(createConfetti, 200);
+  </script>
+</body>
+</html>
