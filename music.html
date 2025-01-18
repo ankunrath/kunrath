@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20XX Hits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .video-item {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
+        .video-title {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin: 20px 0;">20XX Hits</h1>
+    <div class="video-gallery">
+        <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/LN4ZSjsyQiM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Traia Véia e João Gomes - Colo de Menina</div>
+        </div>
+        <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/PLTECT3TR0s" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Maravilhosa - Zé Vaqueiro</div>
+        </div>
+        <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/U6reD8UVa0E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Brenno & Matheus, DJ Ari SL - Descer Pra BC</div>
+        </div>
+        <!-- Adicione mais vídeos aqui -->
+    </div>
+</body>
+</html>
