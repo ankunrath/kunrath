@@ -3,60 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20XX Hits</title>
+    <title>2025 HITS</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #fff;
         }
 
         .video-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
             padding: 20px;
         }
 
         .video-item {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            cursor: pointer;
+            position: relative;
         }
 
-        .video-item iframe {
+        .video-item img {
             width: 100%;
-            height: 200px;
-            border: none;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item img:hover {
+            transform: scale(1.05);
         }
 
         .video-title {
-            padding: 10px;
-            font-size: 16px;
-            font-weight: bold;
             text-align: center;
-            color: #333;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Pop-up modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal iframe {
+            width: 90%;
+            max-width: 800px;
+            height: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .modal .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; margin: 20px 0;">20XX Hits</h1>
+    <h1>2025 HITS</h1>
     <div class="video-gallery">
-        <div class="video-item">
-            <iframe src="https://www.youtube.com/embed/LN4ZSjsyQiM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-item" onclick="openModal('https://www.youtube.com/embed/LN4ZSjsyQiM')">
+            <img src="https://img.youtube.com/vi/LN4ZSjsyQiM/0.jpg" alt="Vídeo 1">
             <div class="video-title">Traia Véia e João Gomes - Colo de Menina</div>
         </div>
-        <div class="video-item">
-            <iframe src="https://www.youtube.com/embed/PLTECT3TR0s" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-item" onclick="openModal('https://www.youtube.com/embed/PLTECT3TR0s')">
+            <img src="https://img.youtube.com/vi/PLTECT3TR0s/0.jpg" alt="Vídeo 2">
             <div class="video-title">Maravilhosa - Zé Vaqueiro</div>
         </div>
-        <div class="video-item">
-            <iframe src="https://www.youtube.com/embed/U6reD8UVa0E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-item" onclick="openModal('https://www.youtube.com/embed/U6reD8UVa0E')">
+            <img src="https://img.youtube.com/vi/U6reD8UVa0E/0.jpg" alt="Vídeo 2">
             <div class="video-title">Brenno & Matheus, DJ Ari SL - Descer Pra BC</div>
         </div>
         <!-- Adicione mais vídeos aqui -->
     </div>
+
+    <!-- Modal -->
+    <div id="videoModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        // Função para abrir o modal e carregar o vídeo
+        function openModal(videoUrl) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = videoUrl + "?autoplay=1";
+            modal.style.display = 'flex';
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = '';
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
