@@ -16,7 +16,9 @@
         h1 {
             text-align: center;
             margin: 20px 0;
-            color: #fff;
+            font-size: 3rem;
+            color: #f0a500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .video-gallery {
@@ -46,6 +48,15 @@
             margin-top: 10px;
             font-size: 14px;
             color: #ccc;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 30px 20px;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #ff6f61;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         /* Pop-up modal */
@@ -81,7 +92,6 @@
 </head>
 <body>
     <h1>Shuffle</h1>
-    <h2>As canções que embalam o agora e aquelas que me levam de volta a momentos inesquecíveis, trazendo à tona memórias de um tempo que não volta mais.</h2>
     <div class="video-gallery">
         <div class="video-item" onclick="openModal('https://www.youtube.com/embed/LN4ZSjsyQiM')">
             <img src="https://img.youtube.com/vi/LN4ZSjsyQiM/0.jpg" alt="Colo de Menina">
@@ -95,12 +105,13 @@
             <img src="https://img.youtube.com/vi/U6reD8UVa0E/0.jpg" alt="Descer Pra BC">
             <div class="video-title">Brenno & Matheus, DJ Ari SL - Descer Pra BC</div>
         </div>
-         <div class="video-item" onclick="openModal('https://www.youtube.com/embed/1nGEZIHg4hE')">
+        <div class="video-item" onclick="openModal('https://www.youtube.com/embed/1nGEZIHg4hE')">
             <img src="https://img.youtube.com/vi/1nGEZIHg4hE/0.jpg" alt="A mais pedida">
             <div class="video-title">Raimundos - A mais pedida (Lual MTV)</div>
         </div>
         <!-- Adicione mais vídeos aqui -->
     </div>
+    <h2>As canções que embalam o agora e aquelas que me levam de volta a momentos inesquecíveis, trazendo à tona memórias de um tempo que não volta mais.</h2>
 
     <!-- Modal -->
     <div id="videoModal" class="modal">
