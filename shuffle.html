@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuffle</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Ocupa toda a altura da tela */
+      background-color: #000; /* Fundo preto */
+      color: #fff; /* Cor do texto */
+      font-family: Arial, sans-serif;
+    }
+
+    .playlist-container {
+      text-align: center; /* Centraliza o texto dentro do contêiner */
+      width: 90%; /* Adiciona um limite lateral */
+      max-width: 800px; /* Limita a largura máxima */
+    }
+
+    iframe {
+      width: 100%; /* O iframe ocupa 100% da largura do contêiner */
+      aspect-ratio: 16 / 9; /* Mantém a proporção 16:9 */
+      border: none; /* Remove as bordas */
+    }
+
+    h2 {
+      margin-bottom: 20px; /* Espaço entre o título e o iframe */
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 18px; /* Reduz o tamanho do título em telas menores */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="playlist-container">
+    <h2>Shuffle</h2>
+    <iframe 
+      src="https://www.youtube.com/embed/videoseries?list=PLhZ2CW5Q-pzCJ5CZav1RUi8GX7VIdQrcQ" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</body>
+</html>
