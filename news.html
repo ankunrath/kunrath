@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed de Notícias</title>
+
+    <!-- Link para o Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilo geral */
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Estilo do cabeçalho */
+        header {
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+
+        #rss-feed {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 70vh;
+            text-align: left; /* Alinha o texto à esquerda */
+        }
+
+        .feed-item {
+            border-bottom: 1px solid #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
+
+        .feed-item a {
+            text-decoration: none;
+            color: #1e90ff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .feed-item a:hover {
+            text-decoration: underline;
+        }
+
+        .feed-item p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .pub-date {
+            font-size: 12px;
+            color: #bbb;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Feed de Notícias</h1>
+    </header>
+
+    <!-- Container para o feed -->
+    <div id="rss-feed">Carregando feeds...</div>
+
+    <script>
+        async function loadRSS(feeds) {
+            const feedContainer = document.getElementById('rss-feed');
+            feedContainer.innerHTML = "Carregando feeds...";
+
+            try {
+                const feedPromises = feeds.map(feedUrl => 
+                    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`)
+                        .then(response => response.json())
+                        .catch(error => {
+                            console.error(`Erro ao carregar o feed ${feedUrl}:`, error);
+                            return null;
+                        })
+                );
+
+                const feedResults = await Promise.all(feedPromises);
+
+                const allItems = feedResults
+                    .filter(result => result && result.items)
+                    .flatMap(result => result.items.slice(0, 10));
+
+                allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+                if (allItems.length > 0) {
+                    feedContainer.innerHTML = allItems.slice(0, 80).map(item => `
+                        <div class="feed-item">
+                            <a href="${item.link}" target="_blank">${item.title}</a>
+                            <p>${getPlainText(item.description)}</p>
+                            <div class="pub-date">${formatDate(item.pubDate)}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    feedContainer.textContent = "Nenhum item disponível.";
+                }
+            } catch (error) {
+                console.error("Erro ao carregar os feeds:", error);
+                feedContainer.textContent = "Erro ao carregar os feeds.";
+            }
+        }
+
+        function getPlainText(html) {
+            // Cria um elemento temporário para extrair o texto puro
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // Pega apenas o texto do primeiro parágrafo
+            const firstParagraph = tempDiv.querySelector('p') || tempDiv;
+            return firstParagraph.textContent.trim().split(' ').slice(0, 30).join(' ') + '...';
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const date = new Date(dateString);
+            return date.toLocaleString('pt-BR', options);
+        }
+
+        const feedUrls = [
+            "https://portaldestake.com.br/feed/",
+            "https://chapeco.fm/feed/",
+            "https://manualdousuario.net/feed/",
+            "https://manualdousuario.net/feed/?post_type=orbita_post",
+            "https://g1.globo.com/rss/g1/sc/santa-catarina/",
+            "https://g1.globo.com/rss/g1/economia/",
+            "https://g1.globo.com/rss/g1/mundo/",
+            "https://feeds.bbci.co.uk/portuguese/rss.xml"
+        ];
+
+        loadRSS(feedUrls);
+    </script>
+</body>
+</html>
