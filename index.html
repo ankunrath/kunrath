@@ -278,6 +278,51 @@
     cursor: pointer;
     color: #fff;
   }
+
+  /* BOTÃO HAMBÚRGUER (somente mobile) */
+.menu-toggle {
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  /* Mostra o botão hambúrguer */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Esconde os links no mobile */
+  header nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    background: #000;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #222;
+  }
+
+  /* Links do menu mobile */
+  header nav a {
+    padding: 15px 0;
+    font-size: 18px;
+    border: none;
+    display: block;
+  }
+
+  /* Quando o menu estiver ativo */
+  header nav.active {
+    display: flex;
+  }
+}
+
 </style>
 </head>
 
@@ -285,6 +330,9 @@
 
 <header>
   <div class="logo">KUNRATH</div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
   <nav>
     <a href="#set-list">SET LIST</a>
     <a href="#feed" class="active">FEED</a>
@@ -349,6 +397,46 @@
 
     </div>
   </section>
+
+  <div style="
+    width: 100%;
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #5A2D82, #7A3BB2);
+    color: white;
+    font-family: 'Poppins', Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+">
+    <h2 style="margin: 0 0 10px; font-size: 28px; font-weight: 700;">
+        Ganhe 10GB no Vivo Easy
+    </h2>
+
+    <p style="font-size: 18px; margin: 0 0 20px;">
+        Use o código <strong>SE76JKK00J</strong> e receba seu bônus na hora.
+    </p>
+
+    <a href="https://vivo.gateway.zup.me/easy/v3/invitations/SE76JKK00J?gw-app-key=bba02b207a1301386e15000d3ac06d76&media="
+       style="
+           display: inline-block;
+           padding: 14px 28px;
+           background: #F7D046;
+           color: #5A2D82;
+           font-size: 18px;
+           font-weight: 700;
+           border-radius: 12px;
+           text-decoration: none;
+           transition: 0.2s;
+       "
+       onmouseover="this.style.opacity='0.85'"
+       onmouseout="this.style.opacity='1'"
+    >
+        Ativar Agora
+    </a>
+</div>
+
 
   <!-- COPA DO MUNDO 2026 -->
   <section id="copa2026">
@@ -559,6 +647,11 @@ loadRSS("rss-feed", [
 /* INICIALIZA CARROSÉIS */
 renderCarousel("a", 0);
 renderCarousel("b", 0);
+
+function toggleMenu() {
+  document.querySelector("header nav").classList.toggle("active");
+}
+
 </script>
 
-</
+</body>
