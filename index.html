@@ -1,18 +1,564 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="KUNRATH">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUNRATH</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<title>KUNRATH</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --accent: #d4af37;
+    --font-main: 'Montserrat', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    min-height: 100vh;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: #000;
+    padding: 1rem 5vw;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .logo {
+    font-weight: 700;
+    letter-spacing: 0.25rem;
+  }
+
+  nav a {
+    margin-left: 20px;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.15rem;
+  }
+
+  nav a:hover,
+  nav a.active {
+    border: 1px solid var(--accent);
+    padding: 4px 10px;
+  }
+
+  main {
+    padding: 2rem 5vw 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  section {
+    scroll-margin-top: 5rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .container {
+    background: #050505;
+    border: 1px solid #333;
+    padding: 1rem;
+  }
+
+  /* FEED */
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-button {
+    border: 1px solid #444;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.18rem;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .tab-button.active {
+    border-color: var(--accent);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  #rss-feed,
+  #rss-ultimas {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #111;
+    border: 1px solid #333;
+    overflow-y: auto;
+    max-height: 420px;
+    text-align: left;
+  }
+
+  .feed-item {
+    border-bottom: 1px solid #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .feed-item a {
+    text-decoration: none;
+    color: #1e90ff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .feed-item p {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #ccc;
+  }
+
+  .pub-date {
+    font-size: 11px;
+    color: #bbb;
+    margin-top: 5px;
+  }
+
+  /* SET LIST */
+  .setlist-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .setlist-button {
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .setlist-button.active {
+    border-color: var(--accent);
+  }
+
+  .setlist-content {
+    display: none;
+  }
+
+  .setlist-content.active {
+    display: block;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+  }
+
+  .carousel {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    transition: transform 0.4s ease;
+  }
+
+  .carousel-item {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .carousel-item img {
+    width: 260px;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .video-title-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.65);
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    user-select: none;
+  }
+
+  .arrow-left { left: 20px; }
+  .arrow-right { right: 20px; }
+
+  /* COPA 2026 */
+  #copa2026 .container {
+    text-align: center;
+  }
+
+  #copa2026 img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #copa2026 p {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+  }
+
+  /* MODAL */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal iframe {
+    width: 90%;
+    max-width: 800px;
+    height: 56.25%;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+  }
+</style>
 </head>
+
 <body>
-    <header>
-        <h1 id="main-title">KUNRATH</h1>
-        <div id="welcome-message" class="hidden">Seja bem-vindo, página em desenvolvimento!</div>
-    </header>
-    <script src="script.js"></script>
-</body>
-</html>
+
+<header>
+  <div class="logo">KUNRATH</div>
+  <nav>
+    <a href="#set-list">SET LIST</a>
+    <a href="#feed" class="active">FEED</a>
+    <a href="#copa2026">COPA 2026</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- FEED -->
+  <section id="feed">
+    <h2 class="section-title">FEED</h2>
+    <div class="container">
+
+      <div class="tabs">
+        <button class="tab-button active" data-tab-group="feed" data-tab="ultimas">ÚLTIMAS NOTÍCIAS</button>
+        <button class="tab-button" data-tab-group="feed" data-tab="manual">MANUAL</button>
+      </div>
+
+      <div id="feed-ultimas" class="tab-content active">
+        <div id="rss-ultimas">Carregando últimas notícias...</div>
+      </div>
+
+      <div id="feed-manual" class="tab-content">
+        <div id="rss-feed">Carregando feeds...</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SET LIST -->
+  <section id="set-list">
+    <h2 class="section-title">SET LIST</h2>
+    <div class="container">
+
+      <div class="setlist-tabs">
+        <button class="setlist-button active" data-tab="a">: a mais pedida</button>
+        <button class="setlist-button" data-tab="b">: torque</button>
+      </div>
+
+      <!-- A MAIS PEDIDA (agora com músicas da antiga TORQUE) -->
+      <div id="a" class="setlist-content active">
+        <div class="carousel-wrapper">
+          <div class="carousel-arrow arrow-left" data-carousel="a">&#10094;</div>
+
+          <div class="carousel" id="carousel-a"></div>
+
+          <div class="carousel-arrow arrow-right" data-carousel="a">&#10095;</div>
+        </div>
+      </div>
+
+      <!-- TORQUE (agora com músicas da antiga A MAIS PEDIDA) -->
+      <div id="b" class="setlist-content">
+        <div class="carousel-wrapper">
+          <div class="carousel-arrow arrow-left" data-carousel="b">&#10094;</div>
+
+          <div class="carousel" id="carousel-b"></div>
+
+          <div class="carousel-arrow arrow-right" data-carousel="b">&#10095;</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COPA DO MUNDO 2026 -->
+  <section id="copa2026">
+    <h2 class="section-title">COPA DO MUNDO 2026</h2>
+    <div class="container">
+      <a href="https://soccer2026.app/pt/bracket" target="_blank" title="Chave da Copa 2026">
+        <img src="https://soccer2026.app/images/bracket/world-cup-2026-bracket-pt.png"
+             alt="Chave da Copa 2026" />
+      </a>
+      <p>
+        Bracket by <a href="https://soccer2026.app/pt/bracket" style="color:#888;">Bola 2026</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div id="videoModal" class="modal">
+  <span class="close-btn" onclick="closeModal()">&times;</span>
+  <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+/* NAV ACTIVE */
+document.querySelectorAll("header nav a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.querySelectorAll("header nav a").forEach(l => l.classList.remove("active"));
+    link.classList.add("active");
+  });
+});
+
+/* TABS FEED */
+document.querySelectorAll(".tab-button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const group = btn.dataset.tabGroup;
+    const tab = btn.dataset.tab;
+
+    document.querySelectorAll(`.tab-button[data-tab-group="${group}"]`)
+      .forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    document.querySelectorAll(`#${group} .tab-content`)
+      .forEach(c => c.classList.remove("active"));
+
+    document.querySelector(`#${group}-${tab}`).classList.add("active");
+  });
+});
+
+/* LISTAS DE VÍDEOS (INVERTIDAS) */
+const videos = {
+  a: [
+    { id: "K6OItJWomiY", title: "Borracho Y Loco" },
+    { id: "xXp8NS7EBZU", title: "SAN FRANCISCO - JÁ VIROU LOUCURA" },
+    { id: "uuY0XyQKpqU", title: "Apartamento 104 – Grupo Festerê" },
+    { id: "B7z96L--27I", title: "Sonhar com Você – Grupo Momentos" },
+    { id: "IaLDjvvklps", title: "Como Eu Te Amo – VH & Alexandre" },
+    { id: "cox_Qe0_yTA", title: "Menina da Aldeia – Andre Renner" }
+  ],
+  b: [
+    { id: "1nGEZIHg4hE", title: "Raimundos – A Mais Pedida (Lual MTV)" },
+    { id: "_c1w056MItU", title: "Linkin Park – What I've Done" },
+    { id: "bjVvUDXqU74", title: "Aurelina Dourado – A Vitória Chegou" }
+  ]
+};
+
+/* RENDERIZA 3 VÍDEOS (ESQ, CENTRO, DIR) */
+function renderCarousel(key, centerIndex) {
+  const list = videos[key];
+  const total = list.length;
+
+  const left = (centerIndex - 1 + total) % total;
+  const right = (centerIndex + 1) % total;
+
+  const carousel = document.getElementById(`carousel-${key}`);
+  carousel.innerHTML = "";
+
+  [left, centerIndex, right].forEach(i => {
+    const v = list[i];
+    carousel.innerHTML += `
+      <div class="carousel-item" data-index="${i}" data-key="${key}">
+        <img src="https://img.youtube.com/vi/${v.id}/0.jpg">
+        <div class="video-title-overlay">${v.title}</div>
+      </div>
+    `;
+  });
+}
+
+/* ESTADO DO CARROSSEL */
+const state = { a: 0, b: 0 };
+
+/* CLIQUE NOS VÍDEOS */
+document.addEventListener("click", e => {
+  if (e.target.closest(".carousel-item")) {
+    const item = e.target.closest(".carousel-item");
+    const key = item.dataset.key;
+    const index = Number(item.dataset.index);
+
+    if (index !== state[key]) {
+      state[key] = index;
+      renderCarousel(key, state[key]);
+    } else {
+      openModal(`https://www.youtube.com/embed/${videos[key][index].id}`);
+    }
+  }
+});
+
+/* SETAS */
+document.querySelectorAll(".carousel-arrow").forEach(arrow => {
+  arrow.addEventListener("click", () => {
+    const key = arrow.dataset.carousel;
+    const list = videos[key];
+    const total = list.length;
+
+    if (arrow.classList.contains("arrow-right")) {
+      state[key] = (state[key] + 1) % total;
+    } else {
+      state[key] = (state[key] - 1 + total) % total;
+    }
+
+    renderCarousel(key, state[key]);
+  });
+});
+
+/* MODAL */
+function openModal(url) {
+  document.getElementById("videoFrame").src = url + "?autoplay=1";
+  document.getElementById("videoModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("videoFrame").src = "";
+  document.getElementById("videoModal").style.display = "none";
+}
+
+/* TABS SET LIST */
+document.querySelectorAll(".setlist-button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".setlist-button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    document.querySelectorAll(".setlist-content").forEach(c => c.classList.remove("active"));
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+
+/* FEED – FUNÇÕES */
+function getPlainText(html) {
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+  const firstParagraph = tempDiv.querySelector('p') || tempDiv;
+  return firstParagraph.textContent.trim().split(' ').slice(0, 30).join(' ') + '...';
+}
+
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  const date = new Date(dateString);
+  return date.toLocaleString('pt-BR', options);
+}
+
+async function loadRSS(targetId, feeds) {
+  const feedContainer = document.getElementById(targetId);
+  feedContainer.innerHTML = "Carregando feeds...";
+
+  try {
+    const feedPromises = feeds.map(feedUrl =>
+      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`)
+        .then(response => response.json())
+        .catch(() => null)
+    );
+
+    const feedResults = await Promise.all(feedPromises);
+
+    const allItems = feedResults
+      .filter(result => result && result.items)
+      .flatMap(result => result.items.slice(0, 10));
+
+    allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+    feedContainer.innerHTML = allItems.slice(0, 80).map(item => `
+      <div class="feed-item">
+        <a href="${item.link}" target="_blank">${item.title}</a>
+        <p>${getPlainText(item.description)}</p>
+        <div class="pub-date">${formatDate(item.pubDate)}</div>
+      </div>
+    `).join('');
+
+  } catch {
+    feedContainer.textContent = "Erro ao carregar os feeds.";
+  }
+}
+
+/* CARREGA FEEDS */
+loadRSS("rss-ultimas", [
+  "https://g1.globo.com/rss/g1/sc/santa-catarina/",
+  "https://g1.globo.com/rss/g1/economia/",
+  "https://g1.globo.com/rss/g1/mundo/",
+  "https://feeds.bbci.co.uk/portuguese/rss.xml",
+  "https://placar.com.br/rss.xml",
+  "https://chapeco.fm/feed/"
+]);
+
+loadRSS("rss-feed", [
+  "https://manualdousuario.net/feed/",
+  "https://manualdousuario.net/feed/?post_type=orbita_post"
+]);
+
+/* INICIALIZA CARROSÉIS */
+renderCarousel("a", 0);
+renderCarousel("b", 0);
+</script>
+
+</
